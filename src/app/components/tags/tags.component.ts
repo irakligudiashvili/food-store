@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Tag } from '../shared/models/Tag';
 import { FoodService } from 'src/app/services/food/food.service';
 
@@ -8,11 +8,20 @@ import { FoodService } from 'src/app/services/food/food.service';
   styleUrls: ['./tags.component.css']
 })
 export class TagsComponent {
-  tags: Tag[] = [];
+
+  @Input()
+  foodPageTags?: string[];
+
+  @Input()
+  justifyContent:string = 'center';
+
+  tags?: Tag[] = [];
 
   constructor(private foodService:FoodService){}
 
   ngOnInit(): void{
-    this.tags = this.foodService.getAllTags();
+    if(!this.foodPageTags){
+      this.tags = this.foodService.getAllTags();
+    }
   }
 }
